@@ -1,7 +1,7 @@
 {
     "name": "codiliateur/text-similarity",
     "description": "Phrase similarity identification functions based on the trigram algorithm",
-    "license": "GNU",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "Codiliateur\\TextSimilarity\\": "src/"
