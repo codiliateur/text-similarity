@@ -1,42 +1,26 @@
-# Laravel Config Helpers
+# text-similarity
 
-## Installation
+This package provides Trigram algorithm based functions for phrase similarity identification.
 
-```bash
-composer require anourvalar/config-helper
-```
+## Class Codiliateur\TextSimilarity\Trigram
 
+Implementation of classic trigram algorithm.
 
-## Usage
+    use Codiliateur\TextSimilarity\Trigram;
 
-### Config example
-```php
-// config/example.php
+    Trigram::similarity('one two tree', 'tree two one')  // 1.0
+    Trigram::similarity('one two', 'one two two one')  // 1.0
+    Trigram::similarity('6 cat eat 6 mouse', 'cat eat 6 mouse')  // 1.0
+    Trigram::similarity('one two', 'tree two one')  // 0.615385
 
-return [
-    'user_role' => [
-        'admin' => ['title' => 'Administrator', 'super_user' => true],
-        'maintainer' => ['title' => 'Maintainer', 'super_user' => true],
-        'moderator' => ['title' => 'Moderator'],
-        'user' => ['title' => 'User', 'register_via_form' => true],
-    ],
-];
-```
+## Class Codiliateur\TextSimilarity\TrigramPlus
 
+Customized implementation of trigram algorithm with counting repeats matched trigram.
 
-### Get filtered keys of config
-```php
-\ConfigHelper::keys('example.user_role', ['super_user' => true]); // ['admin', 'maintainer']
-```
+    use Codiliateur\TextSimilarity\TrigramPlus;
 
+    TrigramPlus::similarity('one two tree', 'tree two one')  // 1.0
+    TrigramPlus::similarity('one two', 'one two two one')  // 0.285714
+    Trigram::similarity('6 cat eat 6 mouse', 'cat eat 6 mouse')  // 0.888889
+    TrigramPlus::similarity('one two', 'tree two one')  // 0.666667
 
-### Get singleton key
-```php
-\ConfigHelper::key('example.user_role', ['register_via_form' => true]); // 'user'
-```
-
-
-### HTML select
-```php
-echo '<select>' . \ConfigHelper::toSelect('example.user_role') . '</select>';
-```
